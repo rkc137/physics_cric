@@ -15,6 +15,11 @@ void Scene::update_parametrs(std::array<float, 3> p)
     };
 }
 
+void Scene::update_coefficients(float zoom, float side)
+{
+    size_coefficient = zoom;
+    side_size = side;
+}
 
 bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
@@ -25,7 +30,6 @@ bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     const int half_width = width / 2;
     const int half_height = height / 2;
     
-    float size_coefficient = 30;
     float sized_width = width / size_coefficient;
     float step = 0.01;
 
@@ -53,8 +57,8 @@ bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
         {
             y = f(x);
 
-            cr->line_to((x * size_coefficient) + half_width + m_offset_x,
-                        (y * size_coefficient * m_side_size) + half_height);
+            cr->line_to((x * size_coefficient) + half_width,
+                        (y * size_coefficient * side_size) + half_height);
 
             past_x = x;
             past_y = y;

@@ -12,8 +12,11 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
     builder->get_widget("scroll_bar_ui", scroll_bar);
     builder->get_widget_derived("scene_ui", scene);
 
-    scale_bar->set_value(50);
-    scroll_bar->set_value(50);
+
+    scale_bar_adjustment = Gtk::Adjustment::create(1, 1, 10);
+    scroll_bar_adjustment = Gtk::Adjustment::create(30, 1, 60);
+    scale_bar->set_adjustment(scale_bar_adjustment);
+    scroll_bar->set_adjustment(scroll_bar_adjustment);
     
     
     //connecting signals
@@ -30,8 +33,7 @@ void MainWindow::update_parametrs()
         atof(line_edits[2]->get_text().c_str())
     });
 
-    scene->m_side_size = scale_bar->get_value();
-    scene->m_offset_x = scroll_bar->get_value();
+    scene->update_coefficients(scroll_bar->get_value(), scale_bar->get_value());
 }
 
 MainWindow::~MainWindow()

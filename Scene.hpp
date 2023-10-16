@@ -14,10 +14,11 @@ public:
     virtual ~Scene();
 
     void update_parametrs(std::array<float, 3> p);
+    void update_coefficients(float zoom, float side);
 
-    float m_side_size = 1;
-    float m_offset_x;
 private:
+    float size_coefficient = 30;
+    float side_size = 1;
     std::array<std::function<float(float)>, 3> funcs;
 
 protected: //slots

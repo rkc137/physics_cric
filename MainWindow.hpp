@@ -12,8 +12,12 @@ class MainWindow : public Gtk::Window
 protected:
     Glib::RefPtr<Gtk::Builder> builder;
     Gtk::Button *draw_button;
+
+    Glib::RefPtr<Gtk::Adjustment> scroll_bar_adjustment;
+    Glib::RefPtr<Gtk::Adjustment> scale_bar_adjustment;
     Gtk::Scrollbar *scroll_bar;
     Gtk::Scale *scale_bar;
+    
     std::array<Gtk::Entry*, 3> line_edits;
     Scene *scene;
 

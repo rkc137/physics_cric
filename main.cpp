@@ -4,7 +4,6 @@
 
 int main(int argc, char* argv[])
 {
-    //need to refactor all this shit
     Gtk::Main app(argc, argv);
     Glib::RefPtr<Gtk::Builder> builder = Gtk::Builder::create_from_file("ui.glade");
     MainWindow *mainWindow = nullptr;

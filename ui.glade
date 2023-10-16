@@ -85,7 +85,7 @@
               <object class="GtkEntry" id="line_edit_1_ui">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="placeholder-text" translatable="yes">1</property>
+                <property name="text" translatable="yes">1</property>
               </object>
               <packing>
                 <property name="expand">False</property>

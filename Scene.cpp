@@ -11,7 +11,7 @@ void Scene::update_parametrs(std::array<float, 3> p)
     funcs = {
         [p](float x){ return std::cos(x * p[0]); },
         [p](float x){ return std::sin(x * p[1]); },
-        [p](float x){ return x * x * p[2]; }
+        [p](float x){ return std::cos(std::sin(x * p[2])); }
     };
 }
 

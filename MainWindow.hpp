@@ -3,6 +3,8 @@
 #include <gtkmm.h>
 #include <cairomm/context.h>
 
+#include <array>
+
 #include "Scene.hpp"
 
 class MainWindow : public Gtk::Window
@@ -10,9 +12,7 @@ class MainWindow : public Gtk::Window
 protected:
     Glib::RefPtr<Gtk::Builder> builder;
     Gtk::Button *draw_button;
-    Gtk::Entry *line_edit_1; 
-    Gtk::Entry *line_edit_2; 
-    Gtk::Entry *line_edit_3;
+    std::array<Gtk::Entry*, 3> line_edits;
     Scene *scene;
 
 public:
@@ -20,5 +20,5 @@ public:
     virtual ~MainWindow();
 
 protected: //slots
-    void on_draw_button_clicked();
+    void update_parametrs();
 };

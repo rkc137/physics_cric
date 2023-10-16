@@ -3,12 +3,18 @@
 Scene::Scene(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder):
             Gtk::DrawingArea(cobject)
 {
+    update_parametrs({1, 1, 1});
+}
+
+void Scene::update_parametrs(std::array<float, 3> p)
+{
     funcs = {
-        [](float x){ return std::cos(x); },
-        [](float x){ return std::sin(x); },
-        [](float x){ return x * x; }
+        [p](float x){ return std::cos(x * p[0]); },
+        [p](float x){ return std::sin(x * p[1]); },
+        [p](float x){ return x * x * p[2]; }
     };
 }
+
 
 bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
@@ -20,22 +26,31 @@ bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     const int half_height = height / 2;
     const float size_coefficient = 30;
     const float sized_width = width / size_coefficient;
-    const float step = 0.1;
+    const float step = 0.01;
 
+
+    //axis
+    cr->set_source_rgb(0, 0, 0);
+    cr->set_line_width(1);
+    cr->move_to(0,          half_height);
+    cr->line_to(width,      half_height);
+    cr->move_to(half_width, 0);
+    cr->line_to(half_width, height);
+    cr->stroke();
 
     for(int i = 0; i < funcs.size(); i++)
     {
         auto f = funcs[i];
-        
+
         cr->set_line_width(3.0);
-        cr->set_source_rgb(0.8, 0.5, 0.0);
+        cr->set_source_rgb(1 / i, 0.0, 0.0);
 
         float past_x = -sized_width - step;
         float past_y = f(past_x);
         cr->move_to(past_x, past_y);
-        for(float x = -sized_width; x < sized_width; x += step)
+        for(float x = -sized_width, y = f(x); x < sized_width; x += step)
         {
-            float y = f(x);
+            y = f(x);
 
             cr->line_to((x * size_coefficient) + half_width,
                         (y * size_coefficient) + half_height);
@@ -43,9 +58,8 @@ bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
             past_x = x;
             past_y = y;
         }
+        cr->stroke();
     }
-
-    cr->stroke();
     return true;
 }
 

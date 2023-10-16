@@ -13,6 +13,8 @@ public:
     Scene(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder);
     virtual ~Scene();
 
+    void update_parametrs(std::array<float, 3> p);
+
 private:
     std::array<std::function<float(float)>, 3> funcs;
 

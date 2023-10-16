@@ -1,6 +1,11 @@
 #pragma once
 
 #include <gtkmm.h>
+#include <cairomm/context.h>
+
+#include <array>
+#include <functional>
+#include <cmath>
 
 class Scene : public Gtk::DrawingArea
 {
@@ -9,9 +14,7 @@ public:
     virtual ~Scene();
 
 private:
-    float math_function_1(float x);
-    float math_function_2(float x);
-    float math_function_3(float x);
+    std::array<std::function<float(float)>, 3> funcs;
 
 protected: //slots
     virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);

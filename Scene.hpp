@@ -15,6 +15,8 @@ public:
 
     void update_parametrs(std::array<float, 3> p);
 
+    float m_side_size = 1;
+    float m_offset_x;
 private:
     std::array<std::function<float(float)>, 3> funcs;
 

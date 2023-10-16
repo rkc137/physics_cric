@@ -24,9 +24,10 @@ bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     
     const int half_width = width / 2;
     const int half_height = height / 2;
-    const float size_coefficient = 30;
-    const float sized_width = width / size_coefficient;
-    const float step = 0.01;
+    
+    float size_coefficient = 30;
+    float sized_width = width / size_coefficient;
+    float step = 0.01;
 
 
     //axis
@@ -52,8 +53,8 @@ bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
         {
             y = f(x);
 
-            cr->line_to((x * size_coefficient) + half_width,
-                        (y * size_coefficient) + half_height);
+            cr->line_to((x * size_coefficient) + half_width + m_offset_x,
+                        (y * size_coefficient * m_side_size) + half_height);
 
             past_x = x;
             past_y = y;

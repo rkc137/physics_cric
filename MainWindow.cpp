@@ -21,10 +21,6 @@ MainWindow::MainWindow(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>
     
     //connecting signals
     draw_button->signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::update_parametrs));
-    // scale_bar_adjustment->signal_value_changed().connect(sigc::mem_fun(*this, &MainWindow::update_parametrs));
-    // scroll_bar_adjustment->signal_value_changed().connect(sigc::mem_fun(*this, &MainWindow::update_parametrs));
-    // for(auto &le : line_edits)
-    //     le->signal_changed().connect(sigc::mem_fun(*this, &MainWindow::update_parametrs));
 }
 
 void MainWindow::update_parametrs()

@@ -9,9 +9,9 @@ Scene::Scene(BaseObjectType* cobject, const Glib::RefPtr<Gtk::Builder>& builder)
 void Scene::update_parametrs(std::array<float, 3> p)
 {
     funcs = {
-        [p](float x){ return std::cos(x * p[0]); },
-        [p](float x){ return std::sin(x * p[1]); },
-        [p](float x){ return std::cos(std::sin(x * p[2])); }
+        [p](float x){ return p[0] * std::cos(x); },
+        [p](float x){ return p[1] * std::sin(x); },
+        [p](float x){ return p[2] * std::cos(std::sin(x)); }
     };
 }
 
@@ -42,18 +42,19 @@ bool Scene::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     cr->move_to(half_width, 0);
     cr->line_to(half_width, height);
     cr->stroke();
+    
 
+    cr->set_line_width(3.0);
     for(int i = 0; i < funcs.size(); i++)
     {
         auto f = funcs[i];
 
-        cr->set_line_width(3.0);
-        cr->set_source_rgb(1 / i, 0.0, 0.0);
+        cr->set_source_rgb(1 / float(i + 1), 1 / float(funcs.size() - i), 0);
 
         float past_x = -sized_width - step;
         float past_y = f(past_x);
         cr->move_to(past_x, past_y);
-        for(float x = -sized_width, y = f(x); x < sized_width; x += step)
+        for(float x = -sized_width, y; x < sized_width; x += step)
         {
             y = f(x);
 
